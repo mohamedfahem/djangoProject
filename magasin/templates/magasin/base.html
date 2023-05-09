@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<title>
+{% block title %} {% endblock %}
+</title>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel='stylesheet' type='text/css' media='screen' href="{% static 'css/base.css'%}">
+
+{% block styles %} {% endblock %}
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light" style="background-color:
+	 rgb(206, 208, 211) ;text-align: center ;color: black; font-weight: bold;">
+		<div class="container-fluid">
+		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+	<img src="https://www.freepnglogos.com/uploads/shopping-cart-png/shopping-cart-svg-png-icon-download-28.png" 
+	style="width:50px;height:50px;color:text-light;">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+			
+			  <li class="nav-item ">
+				<a class="nav-link" href="{% url 'liste_produits'%}">Acceuil</a>
+			  </li>
+			
+
+			 
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						Catalogue
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+						{% if user.is_authenticated %}
+					  <li><a class="dropdown-item" href="{% url 'index'%}">Ajout Produit</a></li> {% endif %}
+					  <li><a class="dropdown-item" href="{% url 'Catalogue'%}">Catalogue</a></li>
+					</ul>
+				  </li>
+				  <li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						List Fournisseurs
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+						{% if user.is_authenticated %}
+					  <li><a class="dropdown-item" href="{% url 'nouvFournisseur' %}">Ajout Fournisseur</a></li>
+					  {% endif %}
+					  <li><a class="dropdown-item" href="{% url 'fournisseurs' %}">Fournisseurs</a></li>
+					</ul>
+				  </li>
+				  {% if user.is_authenticated %}
+				  <li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						List Categories
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+						
+					  <li><a class="dropdown-item" href="{% url 'create_categorie' %}">Ajout Categorie</a></li>
+					 
+					  <li><a class="dropdown-item" href="{% url 'ListCategorie' %}">Categories</a></li>
+					</ul>
+				  </li>
+				
+				  {% endif %}
+
+			</ul>
+
+     
+			<ul class="navbar-nav " style="margin-right: 150px;">
+				
+				{% if user.is_authenticated %}
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						{{user}}
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+					  <li><a class="dropdown-item" href="{% url 'change_password' %}">Modifier le mot de passe</a></li>
+					 <li><a class="dropdown-item" href="{% url 'logout' %}">Déconnexion</a></li></ul>
+				  </li>
+				  <button type="button"id="panier" class="btn btn-success mr-sm-2"data-html="true" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus
+				  sagittis lacus vel augue laoreet rutrum faucibus."><a class="nav-link" href="{% url 'contenu_panier' %}">Panier(0)</a></button>
+					   
+				  {% else %}
+				<li class="nav-item active">
+				<a class="nav-link"  href="{% url 'login' %}">Connexion</a>
+				</li>
+				<li class="nav-item active">
+				<a class="nav-link"  href="{% url 'register' %}">Inscription</a>
+				</li>
+				{% endif %}
+				</ul>
+			
+		  </div>
+		</div>
+	  </nav>
+	
+
+
+
+{% block content %}{% endblock %}
+  
+  
+</body>
+{% block js %}{% endblock %}
+</html>
